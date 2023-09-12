@@ -1,54 +1,62 @@
-import { Button, Checkbox, Form, Input } from "antd";
+import { Button, Select, Form, Input, Row, Col } from "antd";
 
 type FieldType = {
   username?: string;
-  password?: string;
-  remember?: string;
+  userId?: string;
 };
 export default function LoginPage() {
   const onFinish = (values: any) => {
     console.log("Success:", values);
   };
 
+  const userIds = new Array(10).fill(null).map((_, index) => ({
+    label: index + 1 + "",
+    value: index + 1,
+  }));
   return (
-    <Form
-      name="basic"
-      labelCol={{ span: 8 }}
-      wrapperCol={{ span: 16 }}
-      style={{ maxWidth: 600 }}
-      initialValues={{ remember: true }}
-      onFinish={onFinish}
-      autoComplete="off"
-    >
-      <Form.Item<FieldType>
-        label="Username"
-        name="username"
-        rules={[{ required: true, message: "Please input your username!" }]}
+    <Row style={{ height: "95vh" }} justify="center" align="middle">
+      <Col
+        flex="333px"
+        style={{
+          backgroundColor: "lightgray",
+          padding: "24px",
+          borderRadius: "12px",
+        }}
       >
-        <Input />
-      </Form.Item>
+        <Form
+          name="basic"
+          onFinish={onFinish}
+          autoComplete="off"
+          layout="vertical"
+        >
+          <Form.Item<FieldType>
+            label="Username"
+            name="username"
+            rules={[{ required: true, message: "Please enter your username!" }]}
+          >
+            <Input />
+          </Form.Item>
 
-      <Form.Item<FieldType>
-        label="Password"
-        name="password"
-        rules={[{ required: true, message: "Please input your password!" }]}
-      >
-        <Input.Password />
-      </Form.Item>
+          <Form.Item<FieldType>
+            label="User Id"
+            name="userId"
+            rules={[{ required: true, message: "Please select one user id" }]}
+          >
+            <Select options={userIds} />
+          </Form.Item>
 
-      <Form.Item<FieldType>
-        name="remember"
-        valuePropName="checked"
-        wrapperCol={{ offset: 8, span: 16 }}
-      >
-        <Checkbox>Remember me</Checkbox>
-      </Form.Item>
-
-      <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-        <Button type="primary" htmlType="submit">
-          Submit
-        </Button>
-      </Form.Item>
-    </Form>
+          <Form.Item>
+            <Button
+              type="primary"
+              htmlType="submit"
+              block
+              style={{ marginBottom: "0px" }}
+            >
+              Log in
+            </Button>
+          </Form.Item>
+        </Form>
+      </Col>
+    </Row>
   );
 }
