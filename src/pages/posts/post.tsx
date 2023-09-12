@@ -16,7 +16,7 @@ export default function PostPage() {
   const isNotFound = data?.length === 0;
   if (isLoading || isNotFound || error) {
     return (
-      <Row style={{ height: "100vh" }} justify="center" align="middle">
+      <Row style={styles.loader} justify="center" align="middle">
         {isLoading ? (
           <Spin size="large" />
         ) : isNotFound ? (
@@ -31,7 +31,7 @@ export default function PostPage() {
   return (
     <Row justify="center">
       <Col flex="600px">
-        <Button style={{ marginTop: "24px" }} onClick={handleClickBack}>
+        <Button style={styles.backButton} onClick={handleClickBack}>
           Back
         </Button>
         <Title>{post?.title}</Title>
@@ -40,3 +40,8 @@ export default function PostPage() {
     </Row>
   );
 }
+
+const styles = {
+  backButton: { marginTop: "24px" },
+  loader: { height: "100vh" },
+};

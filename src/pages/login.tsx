@@ -1,5 +1,6 @@
 import { Button, Select, Form, Input, Row, Col } from "antd";
 import { useNavigate } from "react-router-dom";
+import React from "react";
 
 type FieldType = {
   username?: string;
@@ -12,12 +13,17 @@ export default function LoginPage() {
     navigate("/posts");
   };
 
-  const userIds = new Array(10).fill(null).map((_, index) => ({
-    label: index + 1 + "",
-    value: index + 1,
-  }));
+  const userIds = React.useMemo(
+    () =>
+      new Array(10).fill(null).map((_, index) => ({
+        label: index + 1 + "",
+        value: index + 1,
+      })),
+    []
+  );
+
   return (
-    <Row style={{ height: "95vh" }} justify="center" align="middle">
+    <Row style={styles.body} justify="center" align="middle">
       <Col
         flex="333px"
         style={{
@@ -49,12 +55,7 @@ export default function LoginPage() {
           </Form.Item>
 
           <Form.Item>
-            <Button
-              type="primary"
-              htmlType="submit"
-              block
-              style={{ marginBottom: "0px" }}
-            >
+            <Button type="primary" htmlType="submit" block style={styles.login}>
               Log in
             </Button>
           </Form.Item>
@@ -63,3 +64,8 @@ export default function LoginPage() {
     </Row>
   );
 }
+
+const styles = {
+  login: { marginBottom: "0px" },
+  body: { height: "95vh" },
+};

@@ -14,7 +14,7 @@ function PostsPage() {
 
   if (isLoading || error) {
     return (
-      <Row style={{ height: "100vh" }} justify="center" align="middle">
+      <Row style={styles.loader} justify="center" align="middle">
         {isLoading ? <Spin size="large" /> : "An error has occurred: "}
       </Row>
     );
@@ -22,7 +22,7 @@ function PostsPage() {
 
   return (
     <Row justify="center">
-      <Col flex="600px" style={{ paddingBottom: "40px" }}>
+      <Col flex="600px" style={styles.body}>
         <Space align="start" size={15}>
           <Button danger onClick={handleClickLogout}>
             Log Out
@@ -32,7 +32,7 @@ function PostsPage() {
             <Text>{userData?.username}</Text>
           </Space>
         </Space>
-        <Title style={{ margin: 0 }}>Posts</Title>
+        <Title style={styles.postTitle}>Posts</Title>
         <List
           pagination={{
             position: "bottom",
@@ -42,10 +42,7 @@ function PostsPage() {
           }}
           itemLayout="horizontal"
           dataSource={data}
-          renderItem={(
-            post: { title: string; id: string; body: string },
-            index
-          ) => (
+          renderItem={(post: { title: string; id: string; body: string }) => (
             <List.Item>
               <List.Item.Meta
                 title={<Link to={`/posts/${post?.id}`}>{post.title}</Link>}
@@ -58,5 +55,11 @@ function PostsPage() {
     </Row>
   );
 }
+
+const styles = {
+  postTitle: { margin: 0 },
+  body: { paddingBottom: "40px" },
+  loader: { height: "100vh" },
+};
 
 export default PostsPage;
