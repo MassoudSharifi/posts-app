@@ -1,10 +1,16 @@
-import { Row, Col, List, Typography, Spin } from "antd";
-import { Link } from "react-router-dom";
+import { Row, Col, List, Typography, Spin, Button, Space } from "antd";
+import { Link, useNavigate } from "react-router-dom";
 import { useGetPosts } from "../../hooks/use-get-posts";
 
-const { Title } = Typography;
+const { Title, Text } = Typography;
 function PostsPage() {
-  const { data, isLoading, error } = useGetPosts();
+  const navigate = useNavigate();
+  const { data, isLoading, error, userData } = useGetPosts();
+
+  const handleClickLogout = () => {
+    localStorage.removeItem("userData");
+    navigate("/");
+  };
 
   if (isLoading || error) {
     return (
@@ -17,7 +23,16 @@ function PostsPage() {
   return (
     <Row justify="center">
       <Col flex="600px" style={{ paddingBottom: "40px" }}>
-        <Title>Posts</Title>
+        <Space align="start" size={15}>
+          <Button danger onClick={handleClickLogout}>
+            Log Out
+          </Button>
+          <Space direction="vertical" size={0}>
+            <Text strong>User Name</Text>
+            <Text>{userData?.username}</Text>
+          </Space>
+        </Space>
+        <Title style={{ margin: 0 }}>Posts</Title>
         <List
           pagination={{
             position: "bottom",

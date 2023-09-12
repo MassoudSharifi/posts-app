@@ -1,12 +1,15 @@
 import { Button, Select, Form, Input, Row, Col } from "antd";
+import { useNavigate } from "react-router-dom";
 
 type FieldType = {
   username?: string;
   userId?: string;
 };
 export default function LoginPage() {
+  const navigate = useNavigate();
   const onFinish = (values: any) => {
-    console.log("Success:", values);
+    localStorage.setItem("userData", JSON.stringify(values));
+    navigate("/posts");
   };
 
   const userIds = new Array(10).fill(null).map((_, index) => ({
