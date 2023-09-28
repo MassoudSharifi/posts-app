@@ -115,7 +115,7 @@ export default function LoginPage() {
               style={styles.login}
               loading={loading}
             >
-              {showVerification ? "SEND" : "Log in"}
+              {showVerification ? "Verify" : "Log in"}
             </Button>
           </Form.Item>
         </Form>
