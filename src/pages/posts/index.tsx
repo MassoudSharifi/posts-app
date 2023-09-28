@@ -1,6 +1,8 @@
 import { Row, Col, List, Typography, Spin, Button, Space } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import { useGetPosts } from "../../hooks/use-get-posts";
+import { signOut } from "firebase/auth";
+import { auth } from "../../config/firbase";
 
 const { Title, Text } = Typography;
 function PostsPage() {
@@ -9,6 +11,7 @@ function PostsPage() {
 
   const handleClickLogout = () => {
     localStorage.removeItem("userData");
+    signOut(auth);
     navigate("/");
   };
 
